@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--手动注入-->
+    <bean id="emp1" class="_2_xml._4_Emp">
+        <property name="name" value="aaa"></property>
+        <property name="dept" ref="dept1"></property>
+    </bean>
+
+    <bean id="dept1" class="_2_xml._4_Dept">
+        <property name="name" value="销售部"></property>
+    </bean>
+
+    <!--autowire 自动注入（xml少用，注解常用）
+        根据指定装配规则, Spring 自动将匹配的属性值进行注入
+            假设：类A有属性b，类型为B。为A的bean自动注入b属性
+            byName 根据属性名称注入, 类B的bean 的id值为b（== 在类A中的属性名b）
+            byType 根据属性类型注入, 类B的bean 只有1个-->
+
+    <!--自动注入: byName-->
+    <bean id="emp2" class="_2_xml._4_Emp" autowire="byName">
+        <property name="name" value="bbb"></property>
+    </bean>
+
+    <bean id="dept" class="_2_xml._4_Dept">
+        <property name="name" value="技术部"></property>
+    </bean>
+
+    <!--自动注入: byType-->
+<!--    <bean id="emp3" class="_2_xml._4_Emp" autowire="byType">-->
+<!--        <property name="name" value="aaa"></property>-->
+<!--    </bean>-->
+
+<!--    <bean id="dept3" class="_2_xml._4_Dept">-->
+<!--        <property name="name" value="市场部"></property>-->
+<!--    </bean>-->
+
+</beans>

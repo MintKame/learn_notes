@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yz.mybatis.mapper._5_result_map2_collection">
+
+    <!--pojo有属性为对象集合 =======================================-->
+    <!--collection标签：定义 关联集合 的封装规则
+            property：哪个属性是 关联集合
+            ofType：关联集合的元素 的 java类型
+            子标签：关联集合的元素 的 属性        -->
+    <resultMap id="school1" type="com.yz.mybatis.pojo.School">
+        <id property="sid" column="sid"></id>
+        <result property="sname" column="sname"></result>
+        <collection property="students" ofType="com.yz.mybatis.pojo.Student3">
+            <id property="id" column="id"></id>
+            <result property="name" column="name"></result>
+            <result property="age" column="age"></result>
+        </collection>
+    </resultMap>
+    <!--left join：即使没学生，也应当查出该学院-->
+    <select id="getSchooldById1" resultMap="school1">
+        SELECT `school`.sid sid, sname, id, NAME, age
+        FROM `school` LEFT JOIN `student`
+                                ON `school`.sid = `student`.sid
+        WHERE `school`.sid=#{sid};
+    </select>
+
+    <!--collection标签，分步查询 =============================================
+        1、按照学院sid，查学院信息
+        2、根据 sid，去学生表查该学院的 所有学生
+        3、学生集合，设置到学院的属性
+
+        property：哪个属性是 关联集合
+        select：查询 关联集合，使用的sql
+        column：pojo的哪列，作为参数，传给这个sql
+            多列的值，封装为map，传给sql
+            column="{key1=column1,key2=column2}"
+
+            延迟加载(懒加载,按需加载) 需要时，在执行23步
+            法一：全局配置的setting标签
+                    lazyLoadingEnabled = true
+                    aggressiveLazyLoading = false
+            法二：collection标签，fetchType = lazy
+     -->
+    <resultMap id="school2" type="com.yz.mybatis.pojo.School">
+        <id property="sid" column="sid"></id>
+        <result property="sname" column="sname"></result>
+        <collection property="students"
+                    select="com.yz.mybatis.mapper._5_result_map2_collection.getStudentBySid"
+                    column="sid">
+        </collection>
+    </resultMap>
+
+    <select id="getStudentBySid" resultType="com.yz.mybatis.pojo.Student3">
+        SELECT *
+        FROM  `student`
+        WHERE sid=#{sid};
+    </select>
+
+    <select id="getSchooldById_step" resultMap="school2">
+        SELECT *
+        FROM `school`
+        WHERE sid=#{sid};
+    </select>
+
+    <!--
+    鉴别器：根据 某列值，改变封装行为 ============================================
+        column：指定判定的列名
+        javaType：列值对应的java类型
+    -->
+    <resultMap id="school3" type="com.yz.mybatis.pojo.School">
+        <id property="sid" column="sid"></id>
+        <result property="sname" column="sname"></result>
+
+        <discriminator javaType="string" column="sname">
+            <!--查出CS，就查学生信息
+                resultType:指定封装的结果类型；不能缺少 -->
+            <case value="CS" resultType="com.yz.mybatis.pojo.School">
+                <collection property="students"
+                            select="com.yz.mybatis.mapper._5_result_map2_collection.getStudentBySid"
+                            column="sid">
+                </collection>
+            </case>
+        </discriminator>
+    </resultMap>
+
+    <select id="getAllSchool_Dis" resultMap="school3">
+        SELECT *
+        FROM `school`;
+    </select>
+</mapper>

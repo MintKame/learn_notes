@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yz.mybatis.mapper._4_result_set">
+    <select id="findStudentById1" resultType="com.yz.mybatis.pojo.Student3">
+        select * from student
+        where id = #{id}
+    </select>
+
+    <select id="findStudentByAge1" resultType="com.yz.mybatis.pojo.Student3">
+        select * from student
+        where age = #{age}
+    </select>
+
+    <select id="findStudentById2" resultType="map">
+        select * from student
+        where id = #{id}
+    </select>
+
+    <select id="findStudentByAge2" resultType="com.yz.mybatis.pojo.Student3">
+        select * from student
+        where age = #{age}
+    </select>
+</mapper>

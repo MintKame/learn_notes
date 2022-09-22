@@ -1,0 +1,18 @@
+﻿// lab2.idl: lab2 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 生成类型库(lab2.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(961d92d2-5acd-46a3-b991-1939852b76f5),
+	version(1.0),
+]
+library lab2Lib
+{
+	importlib("stdole2.tlb");
+};
+

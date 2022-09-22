@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/_3_jdbcTemplate/src/libs/druid-1.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/_3_jdbcTemplate/src/libs/mysql-connector-java-8.0.22.jar!/" />
+      <root url="jar://$PROJECT_DIR$/_3_jdbcTemplate/src/libs/spring-orm-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/_3_jdbcTemplate/src/libs/spring-tx-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/_3_jdbcTemplate/src/libs/spring-aop-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/_3_jdbcTemplate/src/libs/spring-jdbc-5.2.6.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

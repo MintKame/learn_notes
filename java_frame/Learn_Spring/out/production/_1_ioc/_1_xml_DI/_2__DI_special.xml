@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 特殊属性值 -->
+    <bean id="book" class="_1_xml_DI._2_Book">
+        <!--    null 值（不用套一层value标签）-->
+        <property name="name1">
+            <null/>
+        </property>
+
+        <!--    特殊符号（转义/cdata）-->
+        <property name="name2" value="&lt; hhh &gt;"></property>
+        <property name="name3">
+            <value><![CDATA[<<<<>>>>]]></value>
+        </property>
+    </bean>
+</beans>

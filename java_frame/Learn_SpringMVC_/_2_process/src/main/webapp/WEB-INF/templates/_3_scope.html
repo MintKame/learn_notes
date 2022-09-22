@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>域对象传信息</title>
+</head>
+<body>
+<p>不同方法 传信息（信息显示在跳转后的页面） </p>
+
+<a th:href="@{/scope/servletAPI}"> servlet API  </a><br/>
+
+<a th:href="@{/scope/mav}"> modelAndView  </a><br/>
+
+<a th:href="@{/scope/model}"> model  </a><br/>
+
+<a th:href="@{/scope/map}"> map  </a><br/>
+
+<a th:href="@{/scope/model_map}"> modelMap  </a><br/>
+
+
+</body>
+</html>

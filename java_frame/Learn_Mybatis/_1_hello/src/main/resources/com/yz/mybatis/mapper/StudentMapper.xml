@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace：标识该mapper文件-->
+<mapper namespace="com.yz.mybatis.mapper.StudentMapper">
+
+    <!--id：标识该sql语句
+        ParameType：参数的类型
+        resultType：返回的类型
+        #{id}：从传递过来的参数中取出id值 -->
+    <select id="findStudentById" resultType="com.yz.mybatis.pojo.Student1" parameterType="int">
+        select id, name, age from student where id = #{id}
+    </select>
+
+</mapper>

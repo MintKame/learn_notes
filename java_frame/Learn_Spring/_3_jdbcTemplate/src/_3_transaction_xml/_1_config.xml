@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/ssm?serverTimezone=UTC&amp;rewriteBatchedStatements=true"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="0"></property>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--  开启组件扫描: 因为, 自定义类的ioc 基于注解  -->
+    <context:component-scan base-package="_3_transaction_xml"></context:component-scan>
+
+    <!-- 以下是 transaction 所需配置 ====================================================-->
+    <!--创建事务管理器，注入dataSource-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- 设置为 transaction 方法/类 (需名字空间: tx, aop) ====================================================-->
+    <!-- 配置增强(通知) -->
+    <tx:advice id="interceptor" transaction-manager="transactionManager">
+        <!--配置事务参数-->
+        <tx:attributes>
+            <!--指定哪种规则的方法上添加事务
+                可用通配符: name="account*"  -->
+            <tx:method name="transfer" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 配置切入点和切面-->
+    <aop:config>
+        <aop:pointcut id="transferPointCut" expression="execution(* _3_transaction_xml.AccountServiceImpl2.transfer(..))"/>
+
+        <aop:advisor advice-ref="interceptor" pointcut-ref="transferPointCut"/>
+    </aop:config>
+</beans>

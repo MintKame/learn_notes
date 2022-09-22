@@ -1,0 +1,69 @@
+// Comparison versus non-comparison based strategies,是否对比
+// Iterative versus Recursive implementation,迭代和递归
+// Divide-and-Conquer paradigm (this or that),分治
+// Best/Worst/Average-case Time Complexity analysis,时间复杂度
+// Randomized Algorithms, etc.
+
+// many problems become easy:
+// Searching for a specific value v in array A,         根据值
+// Finding the min/max or the k-th smallest/largest,    根据第几
+// Testing for uniqueness and deleting duplicates in array A,       重复
+// Counting how many time a specific value v appear in array A,     数次数
+// Set intersection/union between array A and another sorted array B,
+// Finding a target pair x ∈ A and y ∈ A such that x+y equals to a target z, etc.
+void swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+//��С
+void bubble(int* s,int first,int last)
+{
+	int swapped;
+	do{
+		swapped=0;
+		for(int j=first;j<=last-1;j++)
+		{
+			if(s[j]<s[j+1])
+			{
+				swap(&s[j],&s[j+1]);
+				swapped=1;
+			}
+		}
+		last--;
+	}while(swapped);
+}
+void select(int* s,int first,int last)
+{
+	for(int i=first;i<=last-1;i++)
+	{
+		int pMax=i;
+		for(int j=i+1;j<=last;j++)
+		{
+			if(s[j]>s[pMax])
+			pMax=j;
+		}
+		swap(&s[pMax],&s[i]);
+	}
+}
+void ins(int* s,int first,int last)
+{
+	for(int i=first+1;i<=last;i++)
+	{
+		int temp=s[i];
+		int j;
+		for(j=i-1;j>=first&&s[j]<temp;j--)
+		{
+			s[j+1]=s[j];
+		}
+		s[j+1]=temp;
+	}
+}
+int main()
+{
+	int s[10]={2,0,1,5,2,9,7,11,77,-1};
+	ins(s,0,9);
+	for(int i=0;i<10;i++)
+	printf("%d ",s[i]);
+}

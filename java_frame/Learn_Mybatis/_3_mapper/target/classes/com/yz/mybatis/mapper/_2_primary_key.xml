@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yz.mybatis.mapper._2_primary_key">
+<!--    自增主键：insert传入的bean，不用设主键
+        为了让数据库生成的主键，反过来设置给bean            -->
+
+    <!--mysql：支持自增主键
+        useGeneratedKeys="true"              // 使用自增主键获取主键值策略
+        keyProperty="主键设置给bean的哪个属性"            -->
+    <insert id="addStudent" parameterType="com.yz.mybatis.pojo.Student3"
+        useGeneratedKeys="true" keyProperty="id"  databaseId="mysql">
+        insert into student(name, age)
+        values (#{name}, #{age})
+    </insert>
+
+    <!-- Oracle：不支持自增，从序列中拿到的主键，来模拟自增
+        获取非自增主键的值：
+            keyProperty:"主键设置给bean的哪个属性"
+            order="BEFORE|AFTER":当前sql在insert（之前|之后）运行
+        BEFORE运行顺序：
+            selectKey查询id
+            id值封装给javaBean的id属性
+            运行insert：取出javaBean的id属性
+        AFTER运行顺序：
+            运行insert（从序列中取出新值作为id主键）
+            selectKey查询id
+            id值封装给javaBean的id属性
+            问题：同时插入多条。获取的id为最后一条的  -->
+    <insert id="addStudent" databaseId="oracle">
+        <selectKey keyProperty="id" order="BEFORE" resultType="Integer">
+            select STUDENTS_SEQ.nextval from dual
+        </selectKey>
+        insert into student(id, name, age)
+        values(#{id},#{name},#{age})
+    </insert>
+
+    <insert id="addStudent" databaseId="oracle">
+        <selectKey keyProperty="id" order="AFTER" resultType="Integer">
+             select EMPLOYEES_SEQ.currval from dual
+        </selectKey>
+        insert into student(id, name, age)
+        values(STUDENTS_SEQ.nextval,#{name},#{age})
+    </insert>
+</mapper>

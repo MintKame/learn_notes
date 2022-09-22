@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/_0_/_0_.iml" filepath="$PROJECT_DIR$/_0_/_0_.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_1_hello/_1_hello.iml" filepath="$PROJECT_DIR$/_1_hello/_1_hello.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_2_autoconfig/_2_autoconfig.iml" filepath="$PROJECT_DIR$/_2_autoconfig/_2_autoconfig.iml" />
+    </modules>
+  </component>
+</project>

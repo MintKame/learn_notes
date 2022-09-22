@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 内部设置bean属性   -->
+    <bean id="dataSource1" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/javabook?serverTimezone=UTC&amp;rewriteBatchedStatements=true"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="0"></property>
+    </bean>
+
+    <!--  外部属性文件 设置bean属性  =====================================================-->
+    <!--  优点：分在别的文件，再在xml中引入，防止属性过多  -->
+    <!--  1.需名字空间加两行,其中beans都改为context（xmlns:context，在schemaLocation加一行） -->
+    <!--  2.引入外部文件  -->
+    <context:property-placeholder location="_2_xml/_5_db.properties"></context:property-placeholder>
+    <!--  3.引用外部文件中的属性  -->
+    <bean id="dataSource2" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+</beans>

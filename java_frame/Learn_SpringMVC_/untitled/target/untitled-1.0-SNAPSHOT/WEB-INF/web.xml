@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>tmp</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name> <!-- contextConfigLocation为固定值 -->
+            <param-value>classpath:springMVC.xml</param-value>
+            <!-- classpath:从类路径下（java，resources）找配置文件，例如maven工程的 src/main/resources
+                需先在resources下创建该配置文件（选Spring配置文件）-->
+        </init-param>
+
+        <!-- Servlet的初始化时间：
+ 		    默认：第一次请求时
+ 		    需要：将DispatcherServlet的初始化，提前到服务器启动时
+            why： DispatcherServlet封装所有处理，启动过程有大量初始化 -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>tmp</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>

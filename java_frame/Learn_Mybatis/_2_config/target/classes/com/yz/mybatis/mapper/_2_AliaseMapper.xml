@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yz.mybatis.mapper._2_AliaseMapper">
+    <select id="findAll" resultType="test2">     -- 此处resultType使用了别名
+        select * from test2
+    </select>
+</mapper>

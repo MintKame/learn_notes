@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="dblibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/_1_ioc/src/_2_xml/dblibs/druid-1.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/_1_ioc/src/_2_xml/dblibs/mysql-connector-java-8.0.22.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

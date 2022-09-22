@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yz.mybatis.mapper._6_bind_sql">
+
+
+    <!-- 重用片段 ==========================================================================
+        sql 抽取可重用片段。include 引用 (常抽取列名)
+     -->
+    <sql id="student_attr1">id, `name`, age</sql>
+
+    <select id="findStudentById1" resultType="com.yz.mybatis.pojo.Student4" parameterType="integer">
+        select <include refid="student_attr1"/>
+        from student
+        where id = #{id}
+    </select>
+
+    <!-- 传参：
+         include-property标签，向sql标签传参。
+         sql标签取值 ${prop}, #{不能使用这种方式} (因为#是用在预编译sql的    -->
+    <sql id="student_attr2">
+        <if test="_databaseId=='mysql'">
+            id, `name`, age, ${_testColumn}
+        </if>
+    </sql>
+
+    <select id="findStudentById2" resultType="com.yz.mybatis.pojo.Student4" parameterType="integer">
+        select 
+        <include refid="student_attr2">
+            <property name="_databaseId" value="mysql"/>
+            <property name="_testColumn" value="testColumn"/>
+        </include>
+        from student
+        where id = #{id}
+    </select>
+
+    <!-- 查出名字含 传入参数 的学生  ========================================================================
+        不可：where name like '%#{name}%' （因为，先生成预编译sql like '%?%'，再将name填入
+        法一：where name like '%${name}%' （生成sql时，就将name填入了），但有安全问题
+        法二：标签bind，将OGNL表达式（'%'+ _parameter +'%'）绑定到一个变量（_name），后面可引用变量（将变量填入预编译sql的?）
+        推荐：但对于模糊查询，还是推荐给方法传参时加%
+    -->
+    <select id="findStudentByName" resultType="com.yz.mybatis.pojo.Student4" parameterType="string">
+        <bind name="_name" value="'%'+ _parameter +'%'"/>
+        select * from student
+        where name like #{_name}
+    </select>
+</mapper>

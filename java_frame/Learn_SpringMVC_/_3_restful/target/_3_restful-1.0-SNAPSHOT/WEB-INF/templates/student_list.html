@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1" cellpadding="0" cellspacing="0" style="text-align: center;" id="dataTable">
+    <tr>
+        <th colspan="5">Student Info</th>
+    </tr>
+    <tr>
+        <th>id</th>
+    </tr>
+    <tr th:each="student : ${studentList}">
+        <td th:text="${student.id}"></td>
+<!--        <td><a th:href="@{'/student/' + ${student.id}}"> 处理 </a></td>-->
+
+        <td>
+            <form th:action="@{/student}" method="post">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="id" th:value="${student.id}">
+                <input type="text" name="name" th:value="${student.name}"/>
+                <input type="submit" value="更新"/>
+            </form>
+        </td>
+
+        <td>
+            <form th:action="@{'/student/' + ${student.id}}" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="删除"/>
+            </form>
+        </td>
+
+    </tr>
+</table>
+</body>
+</html>

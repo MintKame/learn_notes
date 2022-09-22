@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="basic3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/_2_aop/src/libs/basic/spring-expression-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/_2_aop/src/libs/basic/spring-beans-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/_2_aop/src/libs/basic/spring-context-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/_2_aop/src/libs/basic/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/_2_aop/src/libs/basic/spring-core-5.2.6.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

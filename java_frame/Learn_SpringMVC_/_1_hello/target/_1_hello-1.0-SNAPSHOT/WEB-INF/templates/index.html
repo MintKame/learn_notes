@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--引入thymeleaf名字空间-->
+
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+
+<p>主页</p>
+
+<!--页面跳转：根据controller的设置，taeget页面的请求地址是/hello/world-->
+<a href="/world">world</a><br/>
+<a href="/hello/world">hello.world</a><br/>
+<!--表示从localhost下请求 /world
+    加一个上下文路径 href="/hello/world"，才被controller批评
+    但上下文路径可改，不建议写死
+-->
+
+<a th:href="@{/world}">th：world 被解析为 hello.world </a><br/>
+<!--解决：thymeleaf （加th的属性，会被thymeleaf解析：
+    检测到是绝对路径时，会自动加上 上下文路径（此处为/hello），再请求该路径
+-->
+</body>
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- maven工程的坐标
+       不要使用org.xxx，会导致找不到类 -->
+    <groupId>com.yz.mvc</groupId>
+    <artifactId>_1_hello</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- 默认jar包，web工程需要war -->
+    <packaging>war</packaging>
+
+    <!--不考虑jar包依赖（被自动导入）-->
+    <dependencies>
+        <!-- SpringMVC -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>5.3.1</version>
+        </dependency>
+
+        <!-- 日志 -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <!-- ServletAPI -->
+        <!-- tomcat 自带，scope：provided表示已被提供 -->
+        <!-- 打成war包后，依赖的包会放到 webapp/webinfo/lib 下（除provided）-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Spring5和Thymeleaf整合包 -->
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring5</artifactId>
+            <version>3.0.12.RELEASE</version>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+</project>

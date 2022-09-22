@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 2种bean   -->
+    <!-- 1 普通bean：
+         配置文件bean的class类型 == 真正得到的对象类型  -->
+
+    <bean id="book" class="_2_xml._1_factoryBean"></bean>
+    <!-- 2 工厂bean：
+         配置文件bean的class类型 != 真正得到的对象类型
+              _1_factoryBean    |     _1_Book         -->
+    <!-- 需要：_1_factoryBean实现FactoryBean接口，方法getObject返回真正得到的对象 -->
+</beans>

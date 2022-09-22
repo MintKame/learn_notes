@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--  需要aop名字空间（添加2行）  -->
+
+    <!--  对比annotation：ioc和aop都不用配置  -->
+
+    <!-- 创建bean：增强 与 被增强   -->
+    <bean id="bookDao" class="_2_xml.BookDao"></bean>
+    <bean id="bookProxy" class="_2_xml.BookProxy"></bean>
+
+    <!-- 描述如何增强-->
+    <aop:config>
+        <!-- 连接点：可被增强的方法
+            (提取出来，可复用       -->
+        <aop:pointcut id="bookDaoRead" expression="execution(* _2_xml.BookDao.read(..))"/>
+
+        <!-- 增强类  -->
+        <aop:aspect ref="bookProxy">
+            <!-- 切面：增强到哪，增强方法，增强哪个方法（切入点）-->
+            <aop:before method="before" pointcut-ref="bookDaoRead"></aop:before>
+        </aop:aspect>
+    </aop:config>
+</beans>

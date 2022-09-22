@@ -1,0 +1,28 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>params</title>
+</head>
+<body>
+
+<p>以下请求的请求参数，都为：(name='abc', password='123') </p>
+
+<p>_2_1_获取请求的信息（请求参数，请求头，cookie值）</p>
+<a th:href="@{/request/servlet(name='abc', password='123')}" > /request/servlet </a><br/>
+<a th:href="@{/request/func_para(name='abc', password='123')}" > /request/func_para </a><br/>
+<a th:href="@{/request/func_para_pojo(name='abc', password='123')}" > /request/func_para_pojo </a><br/>
+<a th:href="@{/request/anno(name='abc', password='123')}" > /request/anno </a><br/>
+
+<p>_2_2_获取请求头，请求</p>
+<form th:action="@{/request/request_body}" method="post">
+    /request/request_body
+    <input type="text" name="name" value="abc"/>
+    <input type="text" name="password" value="123"/>
+    <input type="submit"/>
+</form>
+
+<a th:href="@{/request/request_entity(name='abc', password='123')}" > /request/request_entity </a><br/>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/ssm?serverTimezone=UTC&amp;rewriteBatchedStatements=true"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="0"></property>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--开启组件扫描: 因为, 自定义类的ioc 基于注解  -->
+    <context:component-scan base-package="_2_transaction"></context:component-scan>
+
+    <!--以下是 transaction 所需配置 ====================================================-->
+    <!--创建事务管理器，
+        TransactionManager 接口，针对不同持久层框架，提供不同实现类（持久层框架：Hibernate，Mybatis）-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入dataSource -->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!--开启事务注解 (需名字空间: tx) -->
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+</beans>

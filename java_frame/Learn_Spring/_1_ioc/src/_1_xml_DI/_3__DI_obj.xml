@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 属性为object -->
+    <!--  1.外部bean (value->ref) -->
+    <bean id="class1" class="_1_xml_DI._3_Class">
+        <property name="cnum" value="1"></property>
+        <property name="teacher" ref="teacher1"></property>
+        <!-- ref: 属性值为对象（被引用bean的id  -->
+    </bean>
+
+    <bean id="teacher1" class="_1_xml_DI._3_Teacher">
+        <property name="tname" value="a老师"></property>
+    </bean>
+
+    <!--   2.内部bean -->
+    <bean id="class2" class="_1_xml_DI._3_Class">
+        <property name="cnum" value="2"></property>
+        <property name="teacher">
+            <!-- 不用套一层value标签，内部bean不需要id           -->
+            <bean class="_1_xml_DI._3_Teacher">
+                <property name="tname" value="b老师"></property>
+            </bean>
+        </property>
+    </bean>
+
+    <!--   3.级联赋值，赋值：obj属性+该obj属性的属性-->
+    <!--   必须定义：obj属性 的getter -->
+    <bean id="class3" class="_1_xml_DI._3_Class">
+        <property name="cnum" value="2"></property>
+        <property name="teacher">
+            <!-- 此处的obj属性，可以为 内部/外部 bean           -->
+            <bean class="_1_xml_DI._3_Teacher">
+                <property name="tname" value="D老师"></property>
+            </bean>
+        </property>
+        <property name="teacher.tname" value="c老师"></property>
+    </bean>
+</beans>

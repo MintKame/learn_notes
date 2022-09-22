@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>成功</title>
+</head>
+<body>
+
+<p> 显示 服务器 向域对象 共享的信息 </p>
+
+<!--
+    注意：不同方式共享数据，设置的名字 相同（如都为request_msg），
+         因此可用同一个p标签，显示域对象的数据
+-->
+
+<p>来自request的信息</p>
+<p th:text="${request_msg}"></p><br/>
+<!--不能写 p标签 中，必写在 p标签 的属性
+    why：html只有 加 th: 的属性 被 thymeleaf 解析-->
+
+<p>来自session的信息</p>
+<p th:text="${session.session_msg}"></p><br/>
+
+<p>来自application的信息</p>
+<p th:text="${application.application_msg}"></p><br/>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    IOC 操作 Bean 管理(基于xml)      -->
+    <!--    1.Spring 创建对象: bean 标签
+                id：唯一标识，用于 java代码中 获取对象
+                    name同id，但可用特殊符号，过时的structs使用name
+                class：类全路径  -->
+
+    <!--    2.Spirng 注入属性(3种方法) （DI: 依赖注入）-->
+    <!--        2.1.set 方法 property-->
+    <bean id="student1" class="_1_xml_DI._1_Student">
+        <property name="name" value="aaa"></property>
+        <property name="age" value="11"></property>
+        <!--  name：属性名  value：属性值    -->
+    </bean>
+
+    <!--        2.2.有参构造 constructor-arg-->
+    <bean id="student2" class="_1_xml_DI._1_Student">
+        <constructor-arg name="name" value="bbb"></constructor-arg>
+        <constructor-arg name="age" value="22"></constructor-arg>
+    </bean>
+
+    <!--        2.3.p名字空间注入 -->
+    <!--需添加名字空间p，（p的url同xmlns，只是将beans改为p-->
+    <bean id="student3" class="_1_xml_DI._1_Student" p:name="ccc" p:age="33"></bean>
+</beans>

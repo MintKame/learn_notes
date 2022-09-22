@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--数字：对应_1_annotation的 WebConfig.java-->
+    <!-- 1.组件扫描，注意：context名字空间（两行 -->
+    <context:component-scan base-package="com.yz.mvc.controller"></context:component-scan>
+
+    <!-- 2.Thymeleaf视图解析器（负责页面跳转）
+            需设置前后缀，在视图名加前后缀，即可找到资源路径-->
+    <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+        <property name="order" value="1"/>  <!--优先级，可配置多个视图解析器-->
+        <property name="characterEncoding" value="UTF-8"/>
+        <property name="templateEngine">
+            <bean class="org.thymeleaf.spring5.SpringTemplateEngine">
+                <property name="templateResolver">
+                    <bean class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+                        <!-- 视图前缀 -->
+                        <property name="prefix" value="/WEB-INF/templates/"/>
+
+                        <!-- 视图后缀 -->
+                        <property name="suffix" value=".html"/>
+                        <property name="templateMode" value="HTML5"/>
+                        <property name="characterEncoding" value="UTF-8" />
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 之后非必须 ===================================================================================== -->
+    <!-- 注意：以下的mvc名字空间，需手动添加（2行  -->
+
+    <!-- 3.视图控制器 view-controller
+        when：controller方法，只进行页面跳转（只返回视图名
+        how： path       请求地址（同：@RequestMapping中的value
+              view-name  视图名（同：控制器方法中 返回的视图名 -->
+    <mvc:view-controller path="/testViewController" view-name="success"></mvc:view-controller>
+
+    <!-- 4.开放对静态资源的访问，如html、js、css、jpg
+        使用默认servlet，处理静态资源 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 5.开启mvc注解驱动（许多作用，见下）
+        a. 解决：SpringMVC中设置了view-controller，controller中的 requestMapping 全失效
+        b. 解决：SpringMVC中设置了defaultServlet，全由 defaultServlet 处理
+           添加注解驱动后：先由 dispatcherServlet 处理，处理不了，再由 defaultServlet 处理
+        c. 响应体为java对象，为了转换为json，需开启注解驱动（@ResponseBody）    -->
+    <mvc:annotation-driven />
+</beans>

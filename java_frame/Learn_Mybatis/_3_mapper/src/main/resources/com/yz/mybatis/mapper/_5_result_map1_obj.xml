@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yz.mybatis.mapper._5_result_map1_obj">
+
+    <!-- resultMap 标签：自定义 结果集映射规则
+                id     唯一标识（用于设置在 sql语句的resultMap属性）
+                type   封装到哪个java类
+         不指定的列会自动封装，但，建议resultMap把全部映射规则都写上。
+         id，result  标签
+            id 针对主键列，底层有优化
+                property obj的属性
+                column   表的列          -->
+
+    <!--pojo有属性为对象
+        级联封装 ============================================================-->
+    <resultMap id="stu1" type="com.yz.mybatis.pojo.Student3">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="age" column="age"></result>
+        <result property="school.sid" column="sid"></result>
+        <result property="school.sname" column="sname"></result>
+    </resultMap>
+
+    <!--sql语句标签属性二选一：resultMap resultSet -->
+    <select id="getStudentById1" resultMap="stu1">
+        select *
+        from `student` natural join `school`
+        where id=#{id};
+    </select>
+
+    <!--association标签：定义 关联pojo 的封装规则 =============================
+            property：哪个属性是 关联pojo
+            javaType：关联pojo 的 java类型
+            子标签：关联pojo 的 属性         -->
+    <resultMap id="stu2" type="com.yz.mybatis.pojo.Student3">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="age" column="age"></result>
+        <association property="school" javaType="com.yz.mybatis.pojo.School">
+            <id property="sid" column="sid"></id>
+            <result property="sname" column="sname"></result>
+        </association>
+    </resultMap>
+
+    <select id="getStudentById2" resultMap="stu2">
+        select *
+        from `student` natural join `school`
+        where id=#{id};
+    </select>
+
+    <!--association标签，分步查询 ==========================================
+            1、先按照学生id，查学生信息
+            2、根据学生信息的，sid，去学院表查学院信息
+            3、学院设置到学生的属性
+
+            property：哪个属性是 关联pojo
+            select：查询 关联pojo，使用的sql
+            column：pojo的哪列，作为参数，传给这个sql
+                多列的值，封装为map，传给sql
+                column="{key1=column1,key2=column2}"
+
+            延迟加载(懒加载,按需加载) 需要时，在执行23步
+            法一：全局配置的setting标签
+                    lazyLoadingEnabled = true
+                    aggressiveLazyLoading = false
+            法二：association标签，fetchType = lazy
+    -->
+    <resultMap id="stu3" type="com.yz.mybatis.pojo.Student3">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="age" column="age"></result>
+        <association property="school"
+                     select="com.yz.mybatis.mapper._5_result_map1_obj.getSchoolById"
+                     column="sid"
+                     fetchType="lazy"></association>
+    </resultMap>
+
+    <select id="getSchoolById" resultType="com.yz.mybatis.pojo.School">
+        select *
+        from `school`
+        where sid=#{sid};
+    </select>
+
+    <select id="getStudentById_step" resultMap="stu3">
+        select *
+        from `student`
+        where id=#{id};
+    </select>
+
+</mapper>

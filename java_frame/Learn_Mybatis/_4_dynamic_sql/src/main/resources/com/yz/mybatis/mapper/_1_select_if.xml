@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yz.mybatis.mapper._1_select_if">
+    <!-- 传入student，拼接所有 满足条件的属性，作为查询条件
+        if 判断满足条件
+        test="判断表达式"（OGNL）
+             从参数中取值进行判断
+             特殊符号 应转义：& "
+    -->
+    <select id="findStudent" resultType="com.yz.mybatis.pojo.Student4" parameterType="com.yz.mybatis.pojo.Student4">
+        select * from student
+        where
+        <if test="name!=null &amp;&amp; name!=&quot;&quot;">
+            name = #{name}
+        </if>
+        <if test="age!=null">
+            and age = #{age}
+        </if>
+    </select>
+    <!--问题：若只有age成立，多出前置 'and'
+        法一：给where后面加上1=1，if标签的sql都为and xxx. -->
+
+    <!-- where：自动去除第一个多出来的and或or     -->
+    <select id="findStudent_where" resultType="com.yz.mybatis.pojo.Student4" parameterType="com.yz.mybatis.pojo.Student4">
+        select * from student
+        <where>
+            <if test="name!=null">
+                name = #{name}
+            </if>
+            <if test="age!=null">
+                and age = #{age}
+            </if>
+        </where>
+    </select>
+
+    <!-- trim（不常用）
+        where 不能解决后置and
+        trim：子标签拼接为整个字符串后，对其进行截取
+            prefix：加一个前缀
+            prefixOverrides：去掉前面多余的字符
+            suffix：加一个后缀
+            suffixOverrides：去掉后面多余的字符-->
+    <select id="findStudent_trim" resultType="com.yz.mybatis.pojo.Student4" parameterType="com.yz.mybatis.pojo.Student4">
+        select * from student
+        <trim  prefix="where" suffixOverrides="and">
+            <if test="name!=null">
+                name = #{name} and
+            </if>
+            <if test="age!=null">
+                age = #{age}
+            </if>
+        </trim>
+    </select>
+</mapper>

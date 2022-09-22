@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/_0_/_0_.iml" filepath="$PROJECT_DIR$/_0_/_0_.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_1_hello/_1_hello.iml" filepath="$PROJECT_DIR$/_1_hello/_1_hello.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_2_config/_2_config.iml" filepath="$PROJECT_DIR$/_2_config/_2_config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_3_mapper/_3_mapper.iml" filepath="$PROJECT_DIR$/_3_mapper/_3_mapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_4_dynamic_sql/_4_dynamic_sql.iml" filepath="$PROJECT_DIR$/_4_dynamic_sql/_4_dynamic_sql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_5_cache/_5_cache.iml" filepath="$PROJECT_DIR$/_5_cache/_5_cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_6_generator/_6_generator.iml" filepath="$PROJECT_DIR$/_6_generator/_6_generator.iml" />
+    </modules>
+  </component>
+</project>

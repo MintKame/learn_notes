@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yz.mybatis.mapper._4_foreach">
+    <!-- foreach  遍历集合，将标签内的内容，拼接起来
+             collection：被遍历的集合（list类型的参数会特殊处理封装在map中，map的key就叫list
+             separator:每个元素间的分隔符
+             open：所有元素拼接后，加一个开始符
+             close:所有元素拼接后，加一个结束符
+             item，index：将当前遍历的index或item，赋给指定变量
+                   遍历list，index=索引，item=当前值
+                   遍历map， index=map的key，item=map的值
+             #{变量名} 取出变量值，也就是当前遍历出的元素
+    -->
+    <!-- 批量查询                ===============================================-->
+    <select id="findStudentByAge" resultType="com.yz.mybatis.pojo.Student4" parameterType="integer">
+        select * from student
+        <where>
+            age in
+            <foreach collection="ages" item="age"
+                     separator="," open="(" close=")">
+             #{age}
+            </foreach>
+        </where>
+    </select>
+
+    <!--或者
+        select * from student
+        <foreach collection="ages" item="age" separator=","
+                    open="where age in(" close=")">
+         #{age}
+        </foreach>
+        -->
+
+    <!-- 批量添加 ============================================================-->
+    <insert id="addStudents1"  parameterType="com.yz.mybatis.pojo.Student4">
+        insert into student(`name`, age) values
+        <foreach collection="students" item="student" separator=",">
+            (#{student.name}, #{student.age})
+        </foreach>
+    </insert>
+
+    <!--多条sql
+        数据库连接时，url 需参数：allowMultiQueries=true -->
+    <insert id="addStudents2"  parameterType="com.yz.mybatis.pojo.Student4">
+        <foreach collection="students" item="student" separator=";">
+            insert into student(`name`, age) values
+            (#{student.name}, #{student.age})
+        </foreach>
+    </insert>
+</mapper>

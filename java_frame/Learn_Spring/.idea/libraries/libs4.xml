@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="libs4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/production/_1_ioc/libs/spring-expression-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/_1_ioc/libs/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/_1_ioc/libs/spring-beans-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/_1_ioc/libs/spring-core-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/_1_ioc/libs/spring-context-5.2.6.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

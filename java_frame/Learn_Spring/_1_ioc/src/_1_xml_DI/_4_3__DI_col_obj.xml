@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 此处，集合为内部bean，集合元素 都为对象（外部bean）   -->
+    <bean id="bbb" class="_1_xml_DI._4_3_BBB">
+        <property name="arr">
+            <array>
+                <ref bean="c1"></ref>
+                <ref bean="c2"></ref>
+                <!-- bean: 被引用的bean的id    -->
+            </array>
+        </property>
+    </bean>
+
+    <!--bean的集合属性 的元素-->
+    <bean id="c1" class="_1_xml_DI._4_3_CCC">
+        <property name="name" value="c1"></property>
+    </bean>
+
+    <bean  id="c2" class="_1_xml_DI._4_3_CCC">
+        <property name="name" value="c2"></property>
+    </bean>
+</beans>

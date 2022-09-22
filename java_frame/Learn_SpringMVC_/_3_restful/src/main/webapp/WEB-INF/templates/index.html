@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<a th:href="@{/student}"> 查询所有学生 </a><br/><br/>
+
+<!--增-->
+<form th:action="@{/student}" method="post">
+    学生名：<input type="text" name="name"  />
+    <input type="submit" value="添加"/>
+</form><br/>
+
+</body>
+</html>

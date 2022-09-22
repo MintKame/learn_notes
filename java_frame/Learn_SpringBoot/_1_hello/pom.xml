@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.yz.sb</groupId>
+    <artifactId>_1_hello</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- 依赖管理 -->
+    <!-- 1.依赖的版本（自动版本仲裁机制）：
+        springboot，需引入父项目，父项目的父项目为spring-boot-dependencies
+            几乎声明了所有开发中常用的依赖的版本号   -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.4.RELEASE</version>
+    </parent>
+
+    <!-- 2.引入依赖：针对springboot的不同场景（此处为web）
+        只需1个依赖（场景启动器）：此场景所有常规依赖，都被自动引入
+        启动器分类：
+            官方starter：spring-boot-starter-*（*为某种场景
+            https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot.html#using-boot-starter
+            第三方：*-spring-boot-starter
+        所有场景启动器最底层的依赖：
+            spring-boot-starter：SpringBoot 自动配置的核心 -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
+    <!--实践：
+        <dependency>
+            引入依赖，默认可不写版本
+            but 引入非版本仲裁的jar，要写版本号。
+        <properties> 可改默认版本
+            1.先查看spring-boot-dependencies当前依赖的版本 所使用的 key
+            2.在当前项目里面重写配置
+            eg:     <properties>
+                        <mysql.version>5.1.43</mysql.version>
+                    </properties>
+    -->
+
+    <!--简化部署
+     ssm：打成war包，部署tomcat
+     springboot：只要引入了下面的插件
+            把项目打成默认的jar包（fat jar：自带整套运行环境）
+            直接在目标服务器cmd运行（注意：取消掉cmd的快速编辑模式  -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+</project>

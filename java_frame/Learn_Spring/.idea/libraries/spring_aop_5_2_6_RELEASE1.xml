@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="spring-aop-5.2.6.RELEASE1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/production/_1_ioc/libs/annotation/spring-aop-5.2.6.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

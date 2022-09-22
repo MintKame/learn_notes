@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <!-- web.xml：servlet，filter，listener（javaWeb 三大组件）
+         how：1.注册组件 2.组件 映射到 路径
+         why：浏览器不能直接访问servlet，需：servlet 映射到 路径 -->
+
+    <!-- DispatcherServlet：SpringMVC的 前端控制器  ============================
+         只有这一个servlet，处理所有请求  -->
+    <servlet>
+        <servlet-name>springMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <!--  设置 SpringMVC配置文件 的位置和名称
+                因：SpringMVC配置文件 默认 位于WEB-INF，默认名为 <servlet-name>-servlet.xml，（如：此处为springMVC-servlet.xml）
+                为了WEB-INF放页面, resource放配置文件  -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name> <!-- contextConfigLocation为固定值 -->
+            <param-value>classpath:springMVC.xml</param-value>
+            <!-- classpath:从类路径下（java，resources）找配置文件，例如maven工程的 src/main/resources
+                需先在resources下创建该配置文件（选Spring配置文件）-->
+        </init-param>
+
+        <!-- Servlet的初始化时间：
+ 		    默认：第一次请求时
+ 		    需要：将DispatcherServlet的初始化，提前到服务器启动时
+            why： DispatcherServlet封装所有处理，启动过程有大量初始化 -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>springMVC</servlet-name>  <!--2个servlet-name要一致-->
+
+        <url-pattern>/</url-pattern>
+        <!--  /* 匹配 all请求
+                    例如使用过滤器时，若需要对所有请求进行过滤
+              / 匹配  .jsp外的all请求
+              why选择 /
+                    DispatcherServlet，处理所有请求
+                    jsp的本质是servlet，要经过服务器指定的servlet进行处理
+                    否则，若DispatcherServlet 将.jsp当作普通请求 进行处理，将找不到相对的jsp页面  -->
+    </servlet-mapping>
+
+    <!-- 之后非必须 ======================================= -->
+    <!--  请求参数 乱码问题
+        get乱码：tomcat配置文件 conf/server.xml  设置 <Connector URIEncoding='UTF-8'>
+
+        post乱码：如，请求参数 赋给pojo，中文出现乱码
+            需要在获取请求参数前（DispatcherServlet前）设置编码，否则无用（因为获取前没设置，获取后已经是乱码了）
+            加载顺序：servletContext监听器，过滤器，servlet（这三类间，不取决于在web.xml中的顺序）
+                servletContext监听器：监听servlet创建和销毁
+                过滤器：每次请求都会执行
+            so，使用SpringMVC提供的  编码过滤器（CharacterEncodingFilter）
+            注：SpringMVC中，处理编码的过滤器一定要配置到其他过滤器之前，否则无效
+    -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceResponseEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>

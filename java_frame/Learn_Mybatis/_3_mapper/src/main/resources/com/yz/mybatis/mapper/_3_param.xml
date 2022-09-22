@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yz.mybatis.mapper._3_param">
+    <select id="findByNameAge" resultType="com.yz.mybatis.pojo.Student3">
+        select *
+        from student
+        where name = #{name}
+            and age = #{1}
+        limit 1
+    </select>
+
+    <!--obj-->
+    <select id="findByObj" resultType="com.yz.mybatis.pojo.Student3">
+        select *
+        from student
+        where name = #{name}
+          and age = #{age}
+        limit 1
+    </select>
+
+    <select id="findByNameObj" resultType="com.yz.mybatis.pojo.Student3">
+        select *
+        from student
+        where name = #{name}
+          and age = #{student.age}
+        limit 1
+    </select>
+
+    <!--map-->
+    <select id="findByMap" resultType="com.yz.mybatis.pojo.Student3">
+        select *
+        from student
+        where name = #{name}
+          and age = #{age}
+        limit 1
+    </select>
+
+    <select id="findByNameMap" resultType="com.yz.mybatis.pojo.Student3">
+        select *
+        from student
+        where name = #{name}
+          and age = #{1.age}
+        limit 1
+    </select>
+
+    <!--collection-->
+    <select id="findByList" resultType="com.yz.mybatis.pojo.Student3">
+        select *
+        from student
+        where name = #{name}
+          and age = #{1[0]}
+        limit 1
+    </select>
+
+</mapper>
+
+<!--
+#{}，${} 获取map中的值，或pojo对象的属性值
+    区别：
+        select * from tbl_employee where id=${id} and last_name=#{lastName}
+
+        预编译sql : select * from tbl_employee where id=2 and last_name=?
+
+        之后，lastName 的值填入预编译sql  的 ？
+
+        #{}:以预编译形式，将参数设置到sql语句中；防止sql注入
+        ${}:从实参取出的值，直接拼装在sql语句中；有安全问题；
+    选择：
+        大多用#{}
+        ${}：原生jdbc不支持占位符的地方
+        比如分表、排序。。。；按照年份分表拆分
+            select * from ${year}_salary where xxx;
+            select * from tbl_employee order by ${f_name} ${order}
+
+#{} 更丰富的用法：
+	规定参数的一些规则：
+        javaType、 jdbcType、 mode（存储过程）、 numericScale、
+        resultMap、 typeHandler、 jdbcTypeName、 expression（未来准备支持的功能）；
+
+    eg：全局配置中，jdbcTypeForNull=OTHER；mybatis对所有的null，都映射为原生Jdbc的OTHER类型，
+        数据为null时，有些数据库 不能识别 mybatis对null的默认处理。
+        如Oracle（报错：JdbcType OTHER：无效的类型；
+        两种办法
+            1、#{email,jdbcType=NULL};
+            2、全局配置中：
+                <setting name="jdbcTypeForNull" value="NULL"/>
+-->

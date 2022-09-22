@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="db1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/production/_4_spring5/libs/db/druid-1.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/_4_spring5/libs/db/spring-aop-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/_4_spring5/libs/db/mysql-connector-java-8.0.22.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/_4_spring5/libs/db/spring-tx-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/_4_spring5/libs/db/spring-jdbc-5.2.6.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/production/_4_spring5/libs/db/spring-orm-5.2.6.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

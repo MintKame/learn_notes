@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yz.mybatis.mapper._5_params">
+
+    <!--两个内置参数
+       test表达式，sql语句中变量：方法传参/两个内置参数
+          _parameter:代表整个参数
+                 单个参数：_parameter 就是这个参数
+                 多个参数：参数会被封装为一个map；_parameter就是代表这个map
+          _databaseId:当前数据库的别名（需全局配置databaseIdProvider标签）
+      eg：
+        _databaseId：根据db执行不同SQL。不用分开写在两个 select标签中
+        _parameter：根据参数是否为null，决定是否有where语句
+    -->
+    <select id="findStudentById" resultType="com.yz.mybatis.pojo.Student4" parameterType="integer">
+        <if test="_databaseId=='mysql'">
+            select * from student
+            <if test="_parameter!=null">
+                where id = #{id}
+            </if>
+        </if>
+    </select>
+</mapper>

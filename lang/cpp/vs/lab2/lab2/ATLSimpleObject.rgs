@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {c91f8f39-deb7-44f7-99f7-ba3be4e1b7b1} = s 'ATLSimpleObject class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{961d92d2-5acd-46a3-b991-1939852b76f5}'
+			Version = s '1.0'
+		}
+	}
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yz.mybatis.mapper._3_update_if">
+
+<!--   传入student，拼接所有 满足条件的属性，更新为新值-->
+    <!-- if    -->
+    <update id="updateStudent" parameterType="com.yz.mybatis.pojo.Student4">
+        update student
+        set
+        <if test="name!=null">
+            name = #{name}
+        </if>
+        <if test="age!=null">
+            , age = #{age}
+        </if>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <!-- set：解决后置，   -->
+    <update id="updateStudent_set" parameterType="com.yz.mybatis.pojo.Student4">
+        update student
+        <set>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="age!=null">
+                age = #{age}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <!-- trim：解决，    -->
+    <update id="updateStudent_trim" parameterType="com.yz.mybatis.pojo.Student4">
+        update student
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name!=null">
+                name = #{name} ,
+            </if>
+            <if test="age!=null">
+                age = #{age}
+            </if>
+        </trim>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+</mapper>

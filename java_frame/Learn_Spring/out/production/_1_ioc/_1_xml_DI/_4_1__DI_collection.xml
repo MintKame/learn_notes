@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 此处，集合为内部bean，集合元素 都为String    -->
+    <!-- array list set 类似 -->
+    <bean id="aaa" class="_1_xml_DI._4_1_AAA">
+        <!--数组类型属性注入-->
+        <property name="arr">
+            <array>
+                <value>a1</value>
+                <value>a2</value>
+            </array>
+        </property>
+        <!--list 类型属性注入-->
+        <property name="list">
+            <list>
+                <value>l1</value>
+                <value>l2</value>
+            </list>
+        </property>
+        <!--set 类型属性注入-->
+        <property name="set">
+            <set>
+                <value>s1</value>
+                <value>s2</value>
+            </set>
+        </property>
+        <!--map 类型属性注入-->
+        <property name="map">
+            <map>
+                <entry key="k1" value="v1"></entry>
+                <entry key="k2" value="v2"></entry>
+            </map>
+        </property>
+    </bean>
+</beans>

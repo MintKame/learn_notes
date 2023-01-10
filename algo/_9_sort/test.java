@@ -1,9 +1,4 @@
-package _9_sort;/*
- * @Author: 闫昭
- * @Date: 2020-12-01- 21:06:00
- * @LastEditors:
- * @Description:
- */
+package _9_sort;
 
 import java.util.Random;
 // cnt cmp(between elements), move(element)

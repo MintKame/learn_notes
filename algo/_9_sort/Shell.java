@@ -1,9 +1,4 @@
-package _9_sort;/*
- * @Author: 闫昭
- * @Date: 2020-12-10- 12:18:00
- * @LastEditors:
- * @Description:
- */
+package _9_sort;
 
 public class Shell {
     static int cmp, move;

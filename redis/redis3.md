@@ -580,7 +580,7 @@ cluster-node-timeout 15000
 
 + 问题描述
 
-  原单体系统 演化成分布式集群系统，分布式系统多线程的特点，分布在不同机器上
+  原单体系统 演化成 分布式集群系统，分布式系统多线程的特点，分布在不同机器上
 
   原单机的并发控制锁策略失效：在某机器上锁，其他机器不知
 
@@ -594,11 +594,15 @@ cluster-node-timeout 15000
 + 根据实现方式，分布式锁还可以分为： 
   + 类CAS自旋式分布式锁：
   
-  询问的方式，类似java并发编程中的线程获询问的方式尝试加锁，如mysql、redis。
+    询问的方式，类似java并发编程中的线程获询问的方式尝试加锁，
+  
+    如mysql、redis。
   
   + event事件类型分布式锁：
   
-    event事件通知进程后续锁的变化，轮询向外的过程，如zookeeper、etcd。
+    event事件通知进程后续锁的变化，轮询向外的过程，
+  
+    如zookeeper、etcd。
   
 + 解决方案 的 优缺点：
 
@@ -608,7 +612,7 @@ cluster-node-timeout 15000
 
 ### RedLock
 
-+ redis 实现方案？
++ redis 实现方案？使用redis命令
 
   1. setnx 键 值：尝试获得锁，没有获得锁的线程会不断等待尝试。
 
@@ -691,13 +695,13 @@ Access Control List （访问权限列表）
 
   更细粒度 权限控制（用户密码，对哪些key，执行哪些命令）
 
-![](C:\Users\86136\Desktop\img\Snipaste_2022-09-22_14-09-48.png)
+![](img\Snipaste_2022-09-22_14-09-48.png)
 
 
 
-![](C:\Users\86136\Desktop\img\Snipaste_2022-09-22_14-10-45.png)
+![](img\Snipaste_2022-09-22_14-10-45.png)
 
-![](C:\Users\86136\Desktop\img\Snipaste_2022-09-22_14-10-15.png)
+![](img\Snipaste_2022-09-22_14-10-15.png)
 
 
 
@@ -705,15 +709,17 @@ Access Control List （访问权限列表）
 
 ## Redis IO多线程
 
-+ Redis 6 加入多线程，但跟 Memcached 这种从 IO处理到数据访问多线程的实现模式有些差异
++ Redis 6 加入多线程
 
-  Redis6执行命令依然是单线程 + 多路IO复用
-
-+ Redis 的 IO多线程，只是用来处理网络数据的读写和协议解析 
+  只是用来：处理网络数据的读写和协议解析 
 
   指**客户端交互部分**的**网络IO**交互处理模块**多线程**， 
 
-+ 原因：不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH/LPOP 等等的并发问题
++ 但跟 Memcached 这种从 IO处理到数据访问多线程的实现模式有些差异
+
+  Redis6执行命令依然是单线程 + 多路IO复用
+
+  原因：不想因多线程而变得复杂，需要去控制 key、lua、事务，LPUSH/LPOP 等等的并发问题
 
 + 整体的设计大体如下:
 

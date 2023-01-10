@@ -13,6 +13,7 @@ public class Quick {
         System.out.println("quick" + version + " \t" + cmp + "\t" + move);
     }
 
+    // 把 arr[first,last] 排序
     private static void quickSort0(int []arr, int first, int last){
         int mid = partition(arr, first, last);
         //recur
@@ -69,8 +70,9 @@ public class Quick {
         while (l < r){  //why not use != (< avoid para have problem)
             //r -> l: find 1st < key, put to left
             while (l < r && arr[r] >= key){
-                //what if no = ?
-                //  consider an arr all same val (neither loop while exe)
+                // 目标是把所有小的放key左边，所有大的放key右边
+                // 等于key的直接跳过，不交换，不用考虑
+                // 因为后续的递归，最终会使等于key的，移动到 左边的最右侧/右边的最左侧
                 r--;
                 cmp++;
             }
@@ -84,7 +86,10 @@ public class Quick {
             arr[r] = arr[l];
             move++;
         }
-        arr[l] = key;   //why not use r ? (para err)
+        arr[l] = key;   
+        // why not use r ? 
+        //      para err, when l > r, loop 0 times
+        //      set arr[1] = arr[1]  
         move++;
         return l;
     }

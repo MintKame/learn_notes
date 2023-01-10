@@ -1,9 +1,4 @@
-package _9_sort;/*
- * @Author: 闫昭
- * @Date: 2020-12-01- 21:19:00
- * @LastEditors:
- * @Description:
- */
+package _9_sort; 
 
 public class Select {
     static int cmp = 0, move = 0;
